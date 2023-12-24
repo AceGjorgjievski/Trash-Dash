@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
 
 @Controller
 @RequestMapping("/login")
@@ -44,7 +46,7 @@ public class LoginController {
 //    }
 
     @PostMapping
-    public String loginUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
+    public String loginUser(@RequestParam String username, @RequestParam String password, HttpServletRequest  request) {
         User user = null;
 
         try {
@@ -52,8 +54,9 @@ public class LoginController {
 //            String password = request.getParameter("password");
 
             user = this.userService.login(username, password);
-
-            request.getSession().setAttribute("user", user);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", username);
+//            sessionEvent.getSession().getServletContext().setAttribute("user", username);
             return "redirect:/reports";
         } catch (Exception e) {
             System.out.println("Login - " + e.getMessage());

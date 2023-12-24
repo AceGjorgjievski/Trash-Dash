@@ -36,8 +36,8 @@ public class ReportServiceImp implements ReportService{
     }
 
     @Override
-    public Optional<Report> save(Report report) {
-        return Optional.empty();
+    public Report save(Report report) {
+        return reportRepository.save(report);
     }
 
     @Override

@@ -1,3 +1,54 @@
 <th:block>
     <p>Create report site</p>
+
+    <div id="map" style="height: 300px;"></div>
+
+    <form class="form-signin mt-xl-5" method="post" th:action="@{'/createReport'}">
+        <select th:name="trashType">
+            <option th:each="type : ${trashTypes}" th:text="${type}" th:value="${type}"></option>
+        </select>
+
+        <textarea th:name="description"></textarea>
+
+        <!-- Hidden fields for latitude and longitude -->
+        <input hidden id="lat" name="lat" type="text"/>
+        <input hidden id="lng" name="lng" type="text"/>
+
+        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Add report</button>
+    </form>
+
+    <script>
+        // Initialize Leaflet map
+        var map = L.map('map').setView([0, 0], 13);
+
+        // Add a tile layer (you may need to replace the URL with your own)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add a marker on map click
+        var marker = L.marker([0, 0], { draggable: true }).addTo(map);
+
+        // Update hidden fields with marker's new position on dragend
+        marker.on('dragend', function (event) {
+            var markerLatLng = marker.getLatLng();
+            document.getElementById('lat').value = markerLatLng.lat;
+            document.getElementById('lng').value = markerLatLng.lng;
+        });
+
+        // Request user's location and update marker on success
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var userLocation = [position.coords.latitude, position.coords.longitude];
+                map.setView(userLocation, 16);
+                marker.setLatLng(userLocation);
+                document.getElementById('lat').value = userLocation[0];
+                document.getElementById('lng').value = userLocation[1];
+            }, function () {
+                alert("Couldn't determine your location. Please enter it manually.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser. Please enter your location manually.");
+        }
+    </script>
 </th:block>
