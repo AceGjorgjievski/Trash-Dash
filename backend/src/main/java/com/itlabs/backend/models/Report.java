@@ -2,12 +2,14 @@ package com.itlabs.backend.models;
 
 import com.itlabs.backend.models.enums.ReportStatus;
 import com.itlabs.backend.models.enums.TrashType;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@Data
 public class Report {
 
     @Id

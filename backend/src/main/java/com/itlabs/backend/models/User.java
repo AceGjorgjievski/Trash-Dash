@@ -1,11 +1,13 @@
 package com.itlabs.backend.models;
 
 import com.itlabs.backend.models.enums.RoleType;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "app_user")
 public class User {
 
