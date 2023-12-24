@@ -1,13 +1,16 @@
-package com.itlabs.backend.web;
+package com.itlabs.backend.Web;
 
 import com.itlabs.backend.models.User;
-import com.itlabs.backend.service.UserService;
+import com.itlabs.backend.models.exceptions.InvalidUserCredentialsException;
+import com.itlabs.backend.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/login")
@@ -25,8 +28,9 @@ public class LoginController {
         return "master-template";
     }
 
-    /*@PostMapping
-    public String login(@RequestParam String email, @RequestParam String password, Model model){
+    @PostMapping
+    public String login(@RequestParam String email, @RequestParam String password, Model model,
+                        HttpServletRequest request){
         User user = null;
         try {
             user = userService.login(email, password);
@@ -37,5 +41,5 @@ public class LoginController {
             model.addAttribute("error", exception.getMessage());
             return "login";
         }
-    }*/
+    }
 }

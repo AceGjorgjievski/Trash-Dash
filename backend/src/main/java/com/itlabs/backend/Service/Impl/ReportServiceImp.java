@@ -5,6 +5,7 @@ import com.itlabs.backend.models.Report;
 import com.itlabs.backend.models.User;
 import com.itlabs.backend.models.enums.ReportStatus;
 import com.itlabs.backend.models.enums.TrashType;
+import com.itlabs.backend.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,16 +14,15 @@ import java.util.Optional;
 @Service
 public class ReportServiceImp implements ReportService{
 
-    private final ReportService reportService;
+    private final ReportRepository reportRepository;
 
-
-    public ReportServiceImp(ReportService reportService) {
-        this.reportService = reportService;
+    public ReportServiceImp(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
     }
 
     @Override
     public List<Report> findAll() {
-        return null;
+        return reportRepository.findAll();
     }
 
     @Override

@@ -1,7 +1,9 @@
-package com.itlabs.backend.web;
+package com.itlabs.backend.Web;
 
+import com.itlabs.backend.Service.UserService;
 import com.itlabs.backend.models.enums.RoleType;
-import com.itlabs.backend.service.UserService;
+import com.itlabs.backend.models.exceptions.InvalidUserCredentialsException;
+import com.itlabs.backend.models.exceptions.PasswordsNotMatchingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,14 +30,14 @@ public class RegisterController {
         return "master-template";
     }
 
-    /*@PostMapping
+    @PostMapping
     public String register(@RequestParam String email,@RequestParam String password,@RequestParam String repeatedPassword,
                            @RequestParam String name,@RequestParam String surname, @RequestParam String phoneNumber){
         try {
-            userService.register(email, password, repeatedPassword, name, surname, RoleType.USER, phoneNumber);
+            userService.register(email, password, repeatedPassword, name, surname, phoneNumber);
             return "redirect:/login";
-        }catch (PasswordDoNotMatchException | InvalidArgumentsException exception){
+        }catch (PasswordsNotMatchingException | InvalidUserCredentialsException exception){
             return "redirect:/register?error=" + exception.getMessage();
         }
-    }*/
+    }
 }
