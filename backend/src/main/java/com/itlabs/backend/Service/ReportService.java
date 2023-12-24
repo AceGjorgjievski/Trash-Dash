@@ -21,5 +21,7 @@ public interface ReportService {
 
     Optional<Report> edit(Long id, TrashType trashType, ReportStatus reportStatus, String description, User user, Double longitude, Double latitude);
 
+    Optional<Report> edit(Long id, TrashType trashType);
+
     void deleteById(Long id);
 }
