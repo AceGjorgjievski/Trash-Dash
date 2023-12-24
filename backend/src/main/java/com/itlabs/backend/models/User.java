@@ -1,11 +1,13 @@
 package com.itlabs.backend.models;
 
 import com.itlabs.backend.models.enums.RoleType;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "app_user")
 public class User {
 
@@ -17,11 +19,13 @@ public class User {
 
     private String surname;
 
+    private String email;
+
     private String phoneNumber;
 
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Report> reports;
 
     @Enumerated(EnumType.STRING)
@@ -30,9 +34,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String surname, String phoneNumber, String password, RoleType role) {
+    public User(String name, String surname, String email, String phoneNumber, String password, RoleType role) {
         this.name = name;
         this.surname = surname;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;
