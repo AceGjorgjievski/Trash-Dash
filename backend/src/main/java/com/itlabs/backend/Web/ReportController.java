@@ -35,8 +35,15 @@ public class ReportController {
     private final UserService userService;
 
     @GetMapping
-    public String getMapReportsPage(Model model) {
-        model.addAttribute("reports", reportService.findAll());
+    public String getMapReportsPage(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+//        String username = session.getAttribute("user").toString();
+        String username = request.getRemoteUser();
+        if(username != null) {
+            model.addAttribute("reports", reportService.findReportsByUsername(username));
+        }else {
+            model.addAttribute("reports", reportService.findAll());
+        }
         model.addAttribute("bodyContent","map-reports");
         return "master-template";
     }
@@ -72,5 +79,18 @@ public class ReportController {
                 description, LocalDateTime.now(), user, Double.parseDouble(lng), Double.parseDouble(lat)));
 
         return "redirect:/";
+    }
+
+    @GetMapping("/reports")
+    public String showReportsByUser(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String username = request.getRemoteUser();
+        List<Report> reports = null;
+        if(username != null) {
+            reports = reportService.findReportsByUsername(username);
+        }
+        model.addAttribute("reports",reports);
+        model.addAttribute("bodyContent","reports");
+        return "master-template";
     }
 }

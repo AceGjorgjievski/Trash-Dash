@@ -4,8 +4,11 @@ import com.itlabs.backend.Service.ReportService;
 import com.itlabs.backend.models.Report;
 import com.itlabs.backend.models.User;
 import com.itlabs.backend.models.enums.ReportStatus;
+import com.itlabs.backend.models.enums.RoleType;
 import com.itlabs.backend.models.enums.TrashType;
 import com.itlabs.backend.repository.ReportRepository;
+import com.itlabs.backend.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class ReportServiceImp implements ReportService{
 
     private final ReportRepository reportRepository;
+    private final UserRepository userRepository;
 
-    public ReportServiceImp(ReportRepository reportRepository) {
+    public ReportServiceImp(ReportRepository reportRepository, UserRepository userRepository) {
         this.reportRepository = reportRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,5 +58,15 @@ public class ReportServiceImp implements ReportService{
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public List<Report> findReportsByUsername(String username) {
+        User u = this.userRepository.findByEmail(username)
+                .orElseThrow(() ->  new UsernameNotFoundException(username));
+        if(u.getRole() == RoleType.USER){
+            return reportRepository.findByUser(u);
+        }
+        return findAll();
     }
 }

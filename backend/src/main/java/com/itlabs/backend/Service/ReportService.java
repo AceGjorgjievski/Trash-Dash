@@ -24,4 +24,6 @@ public interface ReportService {
     Optional<Report> edit(Long id, TrashType trashType);
 
     void deleteById(Long id);
+
+    List<Report> findReportsByUsername(String username);
 }

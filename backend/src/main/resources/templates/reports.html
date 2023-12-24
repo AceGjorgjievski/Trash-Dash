@@ -1,0 +1,27 @@
+<th:block>
+  <div class="container mt-4">
+    <h2 class="mb-4">Reports</h2>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th>Trash Type</th>
+        <th>Report Status</th>
+        <th>Description</th>
+        <th>Date of Report</th>
+        <!-- Add more columns as needed -->
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Iterate over the reports and generate table rows -->
+      <tr th:each="report : ${reports}">
+        <td th:text="${report.trashType}"></td>
+        <td th:text="${report.reportStatus}"></td>
+        <td th:text="${report.description}"></td>
+        <td th:text="${report.dateOfReport}"></td>
+
+        <!-- Add more cells for additional fields -->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</th:block>
