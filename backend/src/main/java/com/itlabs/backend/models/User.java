@@ -21,7 +21,7 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Report> reports;
 
     @Enumerated(EnumType.STRING)
