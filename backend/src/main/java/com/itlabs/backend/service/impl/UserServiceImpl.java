@@ -7,8 +7,14 @@ import com.itlabs.backend.models.exceptions.InvalidUserCredentialsException;
 import com.itlabs.backend.models.exceptions.PasswordsNotMatchingException;
 import com.itlabs.backend.models.exceptions.UsernameAlreadyExistsException;
 import com.itlabs.backend.repository.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,6 +49,19 @@ public class UserServiceImpl implements UserService {
             throw new InvalidUserCredentialsException();
         }
         return userRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new InvalidUserCredentialsException());
+                .orElseThrow(InvalidUserCredentialsException::new);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User u = this.userRepository.
+                findByEmail(username).
+                orElseThrow(() -> new UsernameNotFoundException(username));
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                u.getEmail(),
+                u.getPassword(),
+                Stream.of(new SimpleGrantedAuthority(u.getRole().toString())).collect(Collectors.toList()));
+        return userDetails;
     }
 }

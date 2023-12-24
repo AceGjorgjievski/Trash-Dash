@@ -28,18 +28,36 @@ public class LoginController {
         return "master-template";
     }
 
+//    @PostMapping
+//    public String login(@RequestParam String email, @RequestParam String password, Model model,
+//                        HttpServletRequest request){
+//        User user = null;
+//        try {
+//            user = userService.login(email, password);
+//            request.getSession().setAttribute("user", user);
+//            return "redirect:/home";
+//        } catch (InvalidUserCredentialsException exception){
+//            model.addAttribute("hasError", true);
+//            model.addAttribute("error", exception.getMessage());
+//            return "login";
+//        }
+//    }
+
     @PostMapping
-    public String login(@RequestParam String email, @RequestParam String password, Model model,
-                        HttpServletRequest request){
+    public String loginUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
         User user = null;
+
         try {
-            user = userService.login(email, password);
+//            String email = request.getParameter("email");
+//            String password = request.getParameter("password");
+
+            user = this.userService.login(username, password);
+
             request.getSession().setAttribute("user", user);
-            return "redirect:/home";
-        } catch (InvalidUserCredentialsException exception){
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", exception.getMessage());
-            return "login";
+            return "redirect:/reports";
+        } catch (Exception e) {
+            System.out.println("Login - " + e.getMessage());
+            return "redirect:/login?error="+e.getMessage();
         }
     }
 }
