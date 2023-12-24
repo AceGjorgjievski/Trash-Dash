@@ -4,7 +4,7 @@ import com.itlabs.backend.models.enums.ReportStatus;
 import com.itlabs.backend.models.enums.TrashType;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Report {
@@ -21,7 +21,7 @@ public class Report {
 
     private String description;
 
-    private Date dateOfReport;
+    private LocalDateTime dateOfReport;
 
     @ManyToOne
     private User user;
@@ -33,11 +33,11 @@ public class Report {
     public Report() {
     }
 
-    public Report(TrashType trashType, ReportStatus reportStatus, String description, Date dateOfReport, User user, Double longitude, Double latitude) {
+    public Report(TrashType trashType, ReportStatus reportStatus, String description, User user, Double longitude, Double latitude) {
         this.trashType = trashType;
         this.reportStatus = reportStatus;
         this.description = description;
-        this.dateOfReport = dateOfReport;
+        this.dateOfReport = LocalDateTime.now();
         this.user = user;
         this.longitude = longitude;
         this.latitude = latitude;

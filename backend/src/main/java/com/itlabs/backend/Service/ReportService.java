@@ -15,5 +15,11 @@ public interface ReportService {
     Optional<Report> findById(Long id);
 
 
+    Optional<Report> save(TrashType trashType, ReportStatus reportStatus, String description, User user, Double longitude, Double latitude);
+
+    Optional<Report> save(Report report);
+
+    Optional<Report> edit(Long id, TrashType trashType, ReportStatus reportStatus, String description, User user, Double longitude, Double latitude);
+
     void deleteById(Long id);
 }
