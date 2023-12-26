@@ -4,10 +4,13 @@
     <div id="map" style="height: 300px;"></div>
 
     <form class="form-signin mt-xl-5" method="post" th:action="@{'/createReport'}">
+        <div><p style="font-weight: bold">Select a Trash Type:</p></div>
         <select th:name="trashType">
             <option th:each="type : ${trashTypes}" th:text="${type}" th:value="${type}"></option>
         </select>
 
+        <br>
+        <div><p style="font-weight: bold">Write a Description:</p></div>
         <textarea th:name="description"></textarea>
 
         <!-- Hidden fields for latitude and longitude -->
