@@ -16,6 +16,8 @@ hackathon hosted by IT-Labs and Best-Skopje.
 You can check our prototype designed 
 in Figma [here](https://www.figma.com/file/ITnvxLqS44KTZDhLjDTujX/best-trash-report-mockup?type=design&node-id=0-1&mode=design).
 
+### Presentation
+You can find our presentation [here](https://github.com/AceGjorgjievski/Trash-Dash/blob/main/best-hackaton-presentation-ninja-turtles.pdf).
 
 ## Team Members
 - Dimitar Jovanovski
