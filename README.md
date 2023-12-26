@@ -13,7 +13,8 @@ hackathon hosted by IT-Labs and Best-Skopje.
 - **Database:** PostgreSQL
 
 ### Mock-up design prototype
-You can check our prototype designed in Figma [here](https://www.figma.com/file/ITnvxLqS44KTZDhLjDTujX/best-trash-report-mockup?type=design&node-id=0-1&mode=design)
+You can check our prototype designed 
+in Figma [here](https://www.figma.com/file/ITnvxLqS44KTZDhLjDTujX/best-trash-report-mockup?type=design&node-id=0-1&mode=design).
 
 
 ## Team Members
